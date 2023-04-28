@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://67hjv2l0fjrr"]
+
+[ext_resource type="Texture2D" uid="uid://dp7sc42cmg1o" path="res://sprites/resource01.png" id="1_fmtok"]
+[ext_resource type="Script" path="res://actors/uranium.gd" id="1_jg35n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mxofe"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kjb1v"]
+radius = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r50pc"]
+radius = 8.0
+
+[node name="Uranium" type="RigidBody2D"]
+modulate = Color(0.470588, 0.85098, 0.305882, 1)
+collision_layer = 8
+mass = 0.2
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_jg35n")
+
+[node name="Resource01" type="Sprite2D" parent="."]
+texture = ExtResource("1_fmtok")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mxofe")
+
+[node name="PickupRadius" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupRadius"]
+shape = SubResource("CircleShape2D_kjb1v")
+
+[node name="AbsorbRadius" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AbsorbRadius"]
+shape = SubResource("CircleShape2D_r50pc")
+
+[connection signal="body_entered" from="PickupRadius" to="." method="_on_pickup_radius_body_entered"]
+[connection signal="body_entered" from="AbsorbRadius" to="." method="_on_pickup_radius_body_entered"]
+[connection signal="body_entered" from="AbsorbRadius" to="." method="_on_absorb_radius_body_entered"]

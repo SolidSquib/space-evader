@@ -1,0 +1,368 @@
+[gd_scene load_steps=13 format=3 uid="uid://cfcohiargo8i7"]
+
+[ext_resource type="FontFile" uid="uid://bk443clh27vo0" path="res://fonts/GravityBold8.ttf" id="1_68d5b"]
+[ext_resource type="Script" path="res://levels/main_menu.gd" id="1_fr8jm"]
+[ext_resource type="FontFile" uid="uid://c6ueojjym5mxc" path="res://fonts/GravityRegular5.ttf" id="2_ku745"]
+[ext_resource type="Texture2D" uid="uid://c1xhe6n7c4kep" path="res://ui/window-border.png" id="3_3uwnw"]
+[ext_resource type="Texture2D" uid="uid://ceb0hygdydhyi" path="res://ui/window-border-active.png" id="4_nhec4"]
+[ext_resource type="AudioStream" uid="uid://k5q56pgbbet2" path="res://sounds/HoverSounds.wav" id="6_fl7ac"]
+[ext_resource type="AudioStream" uid="uid://7mpiv66yt313" path="res://sounds/menu_002.wav" id="7_b6v8h"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4w1j1"]
+texture = ExtResource("3_3uwnw")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f32yg"]
+texture = ExtResource("4_nhec4")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p42ju"]
+texture = ExtResource("3_3uwnw")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_51dho"]
+texture = ExtResource("3_3uwnw")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qmnsv"]
+texture = ExtResource("4_nhec4")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fr8jm")
+
+[node name="HiScoresContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -410.0
+offset_top = -199.5
+offset_right = -60.0
+offset_bottom = 199.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="HiScoresContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_68d5b")
+theme_override_font_sizes/font_size = 16
+text = "Hi-Scores"
+horizontal_alignment = 1
+
+[node name="ScoreBox" type="VBoxContainer" parent="HiScoresContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Score1" type="HBoxContainer" parent="HiScoresContainer/ScoreBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HiScoresContainer/ScoreBox/Score1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "???
+"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Score" type="Label" parent="HiScoresContainer/ScoreBox/Score1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "0000000000"
+horizontal_alignment = 2
+
+[node name="Score2" type="HBoxContainer" parent="HiScoresContainer/ScoreBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HiScoresContainer/ScoreBox/Score2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "???
+"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Score" type="Label" parent="HiScoresContainer/ScoreBox/Score2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "0000000000"
+horizontal_alignment = 2
+
+[node name="Score3" type="HBoxContainer" parent="HiScoresContainer/ScoreBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HiScoresContainer/ScoreBox/Score3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "???
+"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Score" type="Label" parent="HiScoresContainer/ScoreBox/Score3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "0000000000"
+horizontal_alignment = 2
+
+[node name="Score4" type="HBoxContainer" parent="HiScoresContainer/ScoreBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HiScoresContainer/ScoreBox/Score4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "???
+"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Score" type="Label" parent="HiScoresContainer/ScoreBox/Score4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "0000000000"
+horizontal_alignment = 2
+
+[node name="Score5" type="HBoxContainer" parent="HiScoresContainer/ScoreBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HiScoresContainer/ScoreBox/Score5"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "???
+"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Score" type="Label" parent="HiScoresContainer/ScoreBox/Score5"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "0000000000"
+horizontal_alignment = 2
+
+[node name="Score6" type="HBoxContainer" parent="HiScoresContainer/ScoreBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HiScoresContainer/ScoreBox/Score6"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "???
+"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Score" type="Label" parent="HiScoresContainer/ScoreBox/Score6"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "0000000000"
+horizontal_alignment = 2
+
+[node name="Score7" type="HBoxContainer" parent="HiScoresContainer/ScoreBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HiScoresContainer/ScoreBox/Score7"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "???
+"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Score" type="Label" parent="HiScoresContainer/ScoreBox/Score7"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "0000000000"
+horizontal_alignment = 2
+
+[node name="Score8" type="HBoxContainer" parent="HiScoresContainer/ScoreBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HiScoresContainer/ScoreBox/Score8"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "???
+"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Score" type="Label" parent="HiScoresContainer/ScoreBox/Score8"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "0000000000"
+horizontal_alignment = 2
+
+[node name="Score9" type="HBoxContainer" parent="HiScoresContainer/ScoreBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HiScoresContainer/ScoreBox/Score9"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "???
+"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Score" type="Label" parent="HiScoresContainer/ScoreBox/Score9"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "0000000000"
+horizontal_alignment = 2
+
+[node name="Score10" type="HBoxContainer" parent="HiScoresContainer/ScoreBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HiScoresContainer/ScoreBox/Score10"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "???
+"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Score" type="Label" parent="HiScoresContainer/ScoreBox/Score10"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 15
+text = "0000000000"
+horizontal_alignment = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 60.0
+offset_right = 564.0
+offset_bottom = 258.0
+theme_override_fonts/font = ExtResource("1_68d5b")
+theme_override_font_sizes/font_size = 96
+text = "SPACE 
+EVADER"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = -60.0
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = -8
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_4w1j1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_f32yg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_p42ju")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_51dho")
+theme_override_styles/focus = SubResource("StyleBoxTexture_qmnsv")
+text = "Start"
+
+[node name="ExitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = -8
+theme_override_fonts/font = ExtResource("2_ku745")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_4w1j1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_f32yg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_p42ju")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_51dho")
+theme_override_styles/focus = SubResource("StyleBoxTexture_qmnsv")
+text = "Exit"
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_fl7ac")
+
+[node name="PressSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_b6v8h")
+
+[connection signal="mouse_entered" from="VBoxContainer/StartButton" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/ExitButton" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

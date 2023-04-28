@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="AsteroidPreset" load_steps=5 format=3 uid="uid://mmobgrqt0blc"]
+
+[ext_resource type="Script" path="res://resources/asteroid_preset.gd" id="1_j6bbk"]
+[ext_resource type="Resource" uid="uid://b615r4d4vbmo1" path="res://resources/asteroid_medium.tres" id="1_oxn86"]
+[ext_resource type="Texture2D" uid="uid://bw7tsm5k4wd7e" path="res://sprites/larger01.png" id="3_yma45"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ec2f"]
+radius = 66.0
+
+[resource]
+script = ExtResource("1_j6bbk")
+collision_shape = SubResource("CircleShape2D_5ec2f")
+collision_shape_offset = Vector2(0, 0)
+texture = ExtResource("3_yma45")
+child_presets = Array[ExtResource("1_j6bbk")]([ExtResource("1_oxn86"), ExtResource("1_oxn86")])
+mass = 8.0
+max_integrity = 100.0
+num_resources = 10
+num_resources_on_explode = 10
+radiation_blocked = 8.0
+min_spawn_velocity = -10.0
+max_spawn_velocity = 10.0
+min_spawn_spin = -0.5
+max_spawn_spin = 0.5

@@ -1,0 +1,99 @@
+[gd_scene load_steps=14 format=3 uid="uid://btggehvw6uim4"]
+
+[ext_resource type="Script" path="res://actors/targeting_laser.gd" id="1_eprh0"]
+
+[sub_resource type="Curve" id="Curve_ngx68"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.772727, 0.990909), 0.0, 0.0, 0, 0, Vector2(1, 0.372727), -10.44, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_t0bc8"]
+offsets = PackedFloat32Array(0.64, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tuq1i"]
+gradient = SubResource("Gradient_t0bc8")
+
+[sub_resource type="Curve" id="Curve_5h45p"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.865169, 0.963636), 0.0, 0.0, 0, 0, Vector2(1, 0.118182), -2.99956, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ybeny"]
+curve = SubResource("Curve_5h45p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lrw2x"]
+particle_flag_disable_z = true
+spread = 90.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 75.0
+initial_velocity_max = 150.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_ybeny")
+color_ramp = SubResource("GradientTexture1D_tuq1i")
+
+[sub_resource type="Gradient" id="Gradient_d1ixy"]
+offsets = PackedFloat32Array(0.489231, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1jq4h"]
+gradient = SubResource("Gradient_d1ixy")
+
+[sub_resource type="Curve" id="Curve_vcgcr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.23636, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ov4d3"]
+curve = SubResource("Curve_vcgcr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cmogv"]
+emission_shape = 3
+emission_box_extents = Vector3(50, 1, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+tangential_accel_min = 100.0
+tangential_accel_max = 100.0
+scale_curve = SubResource("CurveTexture_ov4d3")
+color_ramp = SubResource("GradientTexture1D_1jq4h")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oy8nu"]
+
+[node name="TargetingLaser" type="RayCast2D"]
+modulate = Color(0.831373, 0.12549, 0.12549, 0)
+target_position = Vector2(1000, 0)
+collision_mask = 20
+script = ExtResource("1_eprh0")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 100, 0)
+width = 3.0
+width_curve = SubResource("Curve_ngx68")
+
+[node name="CastingVFX" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_lrw2x")
+lifetime = 0.1
+
+[node name="BeamVFX" type="GPUParticles2D" parent="."]
+position = Vector2(50, 0)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_cmogv")
+lifetime = 0.3
+trail_lifetime = 0.5
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+visible = false
+shape = SubResource("RectangleShape2D_oy8nu")
+
+[node name="SafetyNet" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[connection signal="timeout" from="SafetyNet" to="." method="_on_safety_net_timeout"]

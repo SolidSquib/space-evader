@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="AsteroidPreset" load_steps=5 format=3 uid="uid://b615r4d4vbmo1"]
+
+[ext_resource type="Script" path="res://resources/asteroid_preset.gd" id="1_8nmnt"]
+[ext_resource type="Resource" uid="uid://dcgrm175c24ev" path="res://resources/asteroid_small.tres" id="1_velex"]
+[ext_resource type="Texture2D" uid="uid://ltn2vo2i0i72" path="res://sprites/large01.png" id="2_ocwfq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ndgtt"]
+radius = 31.0
+
+[resource]
+script = ExtResource("1_8nmnt")
+collision_shape = SubResource("CircleShape2D_ndgtt")
+collision_shape_offset = Vector2(0, 2)
+texture = ExtResource("2_ocwfq")
+child_presets = Array[ExtResource("1_8nmnt")]([ExtResource("1_velex"), ExtResource("1_velex")])
+mass = 4.0
+max_integrity = 50.0
+num_resources = 5
+num_resources_on_explode = 5
+radiation_blocked = 5.0
+min_spawn_velocity = -30.0
+max_spawn_velocity = 30.0
+min_spawn_spin = -1.0
+max_spawn_spin = 1.0

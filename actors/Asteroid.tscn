@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3hwhnlqclvdc"]
+
+[ext_resource type="Script" path="res://actors/asteroid.gd" id="1_rajss"]
+[ext_resource type="Texture2D" uid="uid://daucea1c88ojj" path="res://sprites/tiny01.png" id="2_wc3sf"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pdmuq"]
+bounce = 0.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h1t2a"]
+radius = 8.0
+
+[node name="Asteroid" type="RigidBody2D"]
+collision_layer = 3
+collision_mask = 5
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_pdmuq")
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+angular_damp_mode = 1
+script = ExtResource("1_rajss")
+on_screen_collision = 19
+off_screen_collision = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h1t2a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_wc3sf")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-4, 0)
+scale = Vector2(2.85867, 3.2)
+rect = Rect2(-10, -10, 23, 20)
+
+[node name="Timer" type="Timer" parent="." groups=["asteroids"]]
+one_shot = true
+
+[node name="SpawnImmunityTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

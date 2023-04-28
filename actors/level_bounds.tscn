@@ -1,0 +1,193 @@
+[gd_scene load_steps=13 format=3 uid="uid://bujiowofhtgno"]
+
+[ext_resource type="Script" path="res://actors/level_bounds.gd" id="1_fxgmy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smcab"]
+size = Vector2(2000, 40)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_p36c7"]
+size = Vector2(2000, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsami"]
+size = Vector2(2000, 40)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fllbf"]
+size = Vector2(2000, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ouxco"]
+size = Vector2(40, 2000)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ubibp"]
+size = Vector2(40, 2000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dsm76"]
+size = Vector2(40, 2000)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_knasc"]
+size = Vector2(40, 2000)
+
+[sub_resource type="Animation" id="Animation_16jtb"]
+resource_name = "pulse"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/SpriteTop:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.670588, 0.227451, 0.235294, 0.521569), Color(0.670588, 0.227451, 0.235294, 1), Color(0.670588, 0.227451, 0.235294, 0.521569)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bottom/SpriteBottom:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.670588, 0.227451, 0.235294, 0.521569), Color(0.670588, 0.227451, 0.235294, 1), Color(0.670588, 0.227451, 0.235294, 0.521569)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Left/SpriteLeft:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.670588, 0.227451, 0.235294, 0.521569), Color(0.670588, 0.227451, 0.235294, 1), Color(0.670588, 0.227451, 0.235294, 0.521569)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Right/SpriteRight:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.670588, 0.227451, 0.235294, 0.521569), Color(0.670588, 0.227451, 0.235294, 1), Color(0.670588, 0.227451, 0.235294, 0.521569)]
+}
+
+[sub_resource type="Animation" id="Animation_jp3f8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/SpriteTop:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.670588, 0.227451, 0.235294, 0.521569)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bottom/SpriteBottom:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.670588, 0.227451, 0.235294, 0.521569)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Left/SpriteLeft:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.670588, 0.227451, 0.235294, 0.521569)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Right/SpriteRight:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.670588, 0.227451, 0.235294, 0.521569)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yfrdh"]
+_data = {
+"RESET": SubResource("Animation_jp3f8"),
+"pulse": SubResource("Animation_16jtb")
+}
+
+[node name="LevelBounds" type="Node2D"]
+script = ExtResource("1_fxgmy")
+
+[node name="Top" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
+shape = SubResource("RectangleShape2D_smcab")
+
+[node name="SpriteTop" type="Sprite2D" parent="Top"]
+modulate = Color(0.670588, 0.227451, 0.235294, 0.521569)
+texture = SubResource("PlaceholderTexture2D_p36c7")
+
+[node name="Bottom" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
+shape = SubResource("RectangleShape2D_wsami")
+
+[node name="SpriteBottom" type="Sprite2D" parent="Bottom"]
+modulate = Color(0.670588, 0.227451, 0.235294, 0.521569)
+texture = SubResource("PlaceholderTexture2D_fllbf")
+
+[node name="Left" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+shape = SubResource("RectangleShape2D_ouxco")
+
+[node name="SpriteLeft" type="Sprite2D" parent="Left"]
+modulate = Color(0.670588, 0.227451, 0.235294, 0.521569)
+texture = SubResource("PlaceholderTexture2D_ubibp")
+
+[node name="Right" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+shape = SubResource("RectangleShape2D_dsm76")
+
+[node name="SpriteRight" type="Sprite2D" parent="Right"]
+modulate = Color(0.670588, 0.227451, 0.235294, 0.521569)
+texture = SubResource("PlaceholderTexture2D_knasc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yfrdh")
+}
+
+[connection signal="body_entered" from="Top" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Bottom" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Left" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Right" to="." method="_on_body_entered"]

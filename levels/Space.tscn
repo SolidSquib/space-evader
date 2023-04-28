@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://bn5h6msannhja"]
+
+[ext_resource type="Script" path="res://levels/space.gd" id="1_g7f52"]
+[ext_resource type="PackedScene" uid="uid://bkqnto56mxxbs" path="res://ui/hud.tscn" id="3_fkhat"]
+[ext_resource type="PackedScene" uid="uid://blrrb8esd04nx" path="res://actors/asteroid_spawner.tscn" id="3_r6h1p"]
+[ext_resource type="PackedScene" uid="uid://fajy7l38613e" path="res://actors/player_ship_physics.tscn" id="3_t3rdo"]
+[ext_resource type="PackedScene" uid="uid://bujiowofhtgno" path="res://actors/level_bounds.tscn" id="5_3aimo"]
+[ext_resource type="PackedScene" uid="uid://do2pibdvohfur" path="res://actors/spawn_area.tscn" id="6_ny58u"]
+
+[sub_resource type="Environment" id="Environment_ucog3"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 1.11
+glow_strength = 2.0
+glow_bloom = 0.01
+glow_blend_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3a853"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 360, 1)
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -10.0
+initial_velocity_max = -10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+
+[node name="Space" type="Node2D"]
+script = ExtResource("1_g7f52")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ucog3")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00392157, 0, 0.00392157, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("3_fkhat")]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+visible = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(1280, 360)
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_3a853")
+lifetime = 140.0
+preprocess = 200.0
+
+[node name="Camera2D" type="Camera2D" parent="." groups=["camera"]]
+limit_left = -1500
+limit_top = -1500
+limit_right = 1500
+limit_bottom = 1500
+position_smoothing_enabled = true
+editor_draw_limits = true
+
+[node name="AsteroidSpawner" parent="Camera2D" node_paths=PackedStringArray("spawn_area") instance=ExtResource("3_r6h1p")]
+initial_pool_size = 300
+spawn_area = NodePath("../../SpawnArea")
+initial_spawn_amount = 150
+spawn_delay_min = 30.0
+spawn_delay_max = 60.0
+beacon_initial_spawn_delay = 10.0
+beacon_spawn_delay_min = 5.0
+beacon_spawn_delay_max = 15.0
+
+[node name="PlayerShip" parent="." instance=ExtResource("3_t3rdo")]
+linear_damp = 1.0
+angular_damp = 1.0
+turn_speed = 2500.0
+thrust = 300.0
+max_health = 30.0
+tractor_beam_force = 600.0
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PlayerShip"]
+visible = false
+remote_path = NodePath("../../Camera2D")
+
+[node name="LevelBounds" parent="." instance=ExtResource("5_3aimo")]
+bounds = Vector2(3000, 3000)
+border_width = 40.0
+
+[node name="SpawnArea" parent="." groups=["spawn_area"] instance=ExtResource("6_ny58u")]
+vertices = Array[Vector2]([Vector2(-1400, -1400), Vector2(1400, -1400), Vector2(-1400, 1400), Vector2(-1400, 1400), Vector2(1400, -1400), Vector2(1400, 1400)])
+spawn_locations = Array[Vector2]([Vector2(-1400, -1400), Vector2(-1400, -1200), Vector2(-1400, -1000), Vector2(-1400, -800), Vector2(-1400, -600), Vector2(-1400, -400), Vector2(-1400, -200), Vector2(-1400, 0), Vector2(-1400, 200), Vector2(-1400, 400), Vector2(-1400, 600), Vector2(-1400, 800), Vector2(-1400, 1000), Vector2(-1400, 1200), Vector2(-1200, -1400), Vector2(-1200, -1200), Vector2(-1200, -1000), Vector2(-1200, -800), Vector2(-1200, -600), Vector2(-1200, -400), Vector2(-1200, -200), Vector2(-1200, 0), Vector2(-1200, 200), Vector2(-1200, 400), Vector2(-1200, 600), Vector2(-1200, 800), Vector2(-1200, 1000), Vector2(-1200, 1200), Vector2(-1000, -1400), Vector2(-1000, -1200), Vector2(-1000, -1000), Vector2(-1000, -800), Vector2(-1000, -600), Vector2(-1000, -400), Vector2(-1000, -200), Vector2(-1000, 0), Vector2(-1000, 200), Vector2(-1000, 400), Vector2(-1000, 600), Vector2(-1000, 800), Vector2(-1000, 1000), Vector2(-1000, 1200), Vector2(-800, -1400), Vector2(-800, -1200), Vector2(-800, -1000), Vector2(-800, -800), Vector2(-800, -600), Vector2(-800, -400), Vector2(-800, -200), Vector2(-800, 0), Vector2(-800, 200), Vector2(-800, 400), Vector2(-800, 600), Vector2(-800, 800), Vector2(-800, 1000), Vector2(-800, 1200), Vector2(-600, -1400), Vector2(-600, -1200), Vector2(-600, -1000), Vector2(-600, -800), Vector2(-600, -600), Vector2(-600, -400), Vector2(-600, -200), Vector2(-600, 0), Vector2(-600, 200), Vector2(-600, 400), Vector2(-600, 600), Vector2(-600, 800), Vector2(-600, 1000), Vector2(-600, 1200), Vector2(-400, -1400), Vector2(-400, -1200), Vector2(-400, -1000), Vector2(-400, -800), Vector2(-400, -600), Vector2(-400, -400), Vector2(-400, -200), Vector2(-400, 0), Vector2(-400, 200), Vector2(-400, 400), Vector2(-400, 600), Vector2(-400, 800), Vector2(-400, 1000), Vector2(-400, 1200), Vector2(-200, -1400), Vector2(-200, -1200), Vector2(-200, -1000), Vector2(-200, -800), Vector2(-200, -600), Vector2(-200, -400), Vector2(-200, -200), Vector2(-200, 0), Vector2(-200, 200), Vector2(-200, 400), Vector2(-200, 600), Vector2(-200, 800), Vector2(-200, 1000), Vector2(-200, 1200), Vector2(0, -1400), Vector2(0, -1200), Vector2(0, -1000), Vector2(0, -800), Vector2(0, -600), Vector2(0, -400), Vector2(0, -200), Vector2(0, 0), Vector2(0, 200), Vector2(0, 400), Vector2(0, 600), Vector2(0, 800), Vector2(0, 1000), Vector2(0, 1200), Vector2(200, -1400), Vector2(200, -1200), Vector2(200, -1000), Vector2(200, -800), Vector2(200, -600), Vector2(200, -400), Vector2(200, -200), Vector2(200, 0), Vector2(200, 200), Vector2(200, 400), Vector2(200, 600), Vector2(200, 800), Vector2(200, 1000), Vector2(200, 1200), Vector2(400, -1400), Vector2(400, -1200), Vector2(400, -1000), Vector2(400, -800), Vector2(400, -600), Vector2(400, -400), Vector2(400, -200), Vector2(400, 0), Vector2(400, 200), Vector2(400, 400), Vector2(400, 600), Vector2(400, 800), Vector2(400, 1000), Vector2(400, 1200), Vector2(600, -1400), Vector2(600, -1200), Vector2(600, -1000), Vector2(600, -800), Vector2(600, -600), Vector2(600, -400), Vector2(600, -200), Vector2(600, 0), Vector2(600, 200), Vector2(600, 400), Vector2(600, 600), Vector2(600, 800), Vector2(600, 1000), Vector2(600, 1200), Vector2(800, -1400), Vector2(800, -1200), Vector2(800, -1000), Vector2(800, -800), Vector2(800, -600), Vector2(800, -400), Vector2(800, -200), Vector2(800, 0), Vector2(800, 200), Vector2(800, 400), Vector2(800, 600), Vector2(800, 800), Vector2(800, 1000), Vector2(800, 1200), Vector2(1000, -1400), Vector2(1000, -1200), Vector2(1000, -1000), Vector2(1000, -800), Vector2(1000, -600), Vector2(1000, -400), Vector2(1000, -200), Vector2(1000, 0), Vector2(1000, 200), Vector2(1000, 400), Vector2(1000, 600), Vector2(1000, 800), Vector2(1000, 1000), Vector2(1000, 1200), Vector2(1200, -1400), Vector2(1200, -1200), Vector2(1200, -1000), Vector2(1200, -800), Vector2(1200, -600), Vector2(1200, -400), Vector2(1200, -200), Vector2(1200, 0), Vector2(1200, 200), Vector2(1200, 400), Vector2(1200, 600), Vector2(1200, 800), Vector2(1200, 1000), Vector2(1200, 1200)])

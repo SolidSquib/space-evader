@@ -1,0 +1,69 @@
+[gd_scene load_steps=13 format=3 uid="uid://blrrb8esd04nx"]
+
+[ext_resource type="Script" path="res://actors/asteroid_spawner.gd" id="1_b6ukh"]
+[ext_resource type="Curve" uid="uid://dew6s2f1sn6sy" path="res://resources/asteroid_spawn_chance_curve.tres" id="2_i2axd"]
+[ext_resource type="Curve" uid="uid://dm15srumjg1dq" path="res://resources/beacon_spawn_curve.tres" id="3_pih3t"]
+[ext_resource type="AudioStream" uid="uid://ddf3oy876o3ge" path="res://sounds/hit/explosion_wide_43.wav" id="4_y0eyo"]
+[ext_resource type="AudioStream" uid="uid://bu4gs8ld1wk4o" path="res://sounds/hit/explosion_wide_45.wav" id="5_nj6lj"]
+[ext_resource type="AudioStream" uid="uid://bkrk8x5hvxiqc" path="res://sounds/hit/explosion_wide_46.wav" id="6_xa6lk"]
+[ext_resource type="AudioStream" uid="uid://2vb3yqmiv02b" path="res://sounds/hit/hit_009.wav" id="7_sapne"]
+[ext_resource type="AudioStream" uid="uid://yvc1uvqgic04" path="res://sounds/hit/hit_010.wav" id="8_yqcim"]
+[ext_resource type="AudioStream" uid="uid://dgqqy84umb15o" path="res://sounds/hit/hit_011.wav" id="9_hx0nq"]
+
+[sub_resource type="Curve2D" id="Curve2D_tgvky"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -660, -380, 0, 0, 0, 0, 660, -380, 0, 0, 0, 0, 660, 380, 0, 0, 0, 0, -660, 380, 0, 0, 0, 0, -660, -380)
+}
+point_count = 5
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_o3gi0"]
+streams_count = 3
+stream_0/stream = ExtResource("4_y0eyo")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_nj6lj")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("6_xa6lk")
+stream_2/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ojdtf"]
+streams_count = 3
+stream_0/stream = ExtResource("7_sapne")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("8_yqcim")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("9_hx0nq")
+stream_2/weight = 1.0
+
+[node name="AsteroidSpawner" type="Node2D"]
+script = ExtResource("1_b6ukh")
+camera_margin = 100.0
+max_time = 120.0
+asteroid_spawn_chance_curve = ExtResource("2_i2axd")
+beacon_spawn_frequency_curve = ExtResource("3_pih3t")
+
+[node name="SpawnDelay" type="Timer" parent="."]
+one_shot = true
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_tgvky")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-660, -380)
+rotates = false
+lookahead = 0.001
+
+[node name="SpawnLocation" type="Node2D" parent="Path2D/PathFollow2D"]
+
+[node name="BeaconSpawnDelay" type="Timer" parent="."]
+one_shot = true
+
+[node name="AsteroidDestroyed" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_o3gi0")
+volume_db = -10.0
+
+[node name="AsteroidDamaged" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ojdtf")
+volume_db = -15.0
+
+[connection signal="timeout" from="SpawnDelay" to="." method="_on_spawn_delay_timeout"]
+[connection signal="timeout" from="BeaconSpawnDelay" to="." method="_on_beacon_spawn_delay_timeout"]

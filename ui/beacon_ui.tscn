@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx6v5qlynat66"]
+
+[ext_resource type="Texture2D" uid="uid://bxbt50hxqb4v2" path="res://ui/beacon-body.png" id="1_8mpy8"]
+[ext_resource type="Script" path="res://ui/beacon_ui.gd" id="1_s3tyb"]
+[ext_resource type="Texture2D" uid="uid://dewmtguygpdff" path="res://ui/beacon-waves.png" id="2_ey31v"]
+[ext_resource type="FontFile" uid="uid://c6ueojjym5mxc" path="res://fonts/GravityRegular5.ttf" id="3_k8201"]
+
+[node name="BeaconIndicator" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s3tyb")
+
+[node name="Body" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_8mpy8")
+
+[node name="RotationControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Waves" type="TextureRect" parent="RotationControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ey31v")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 3.0
+offset_right = 47.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("3_k8201")
+theme_override_font_sizes/font_size = 5
+text = "Scan
+Incoming!"

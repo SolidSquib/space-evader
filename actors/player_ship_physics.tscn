@@ -1,0 +1,201 @@
+[gd_scene load_steps=31 format=3 uid="uid://fajy7l38613e"]
+
+[ext_resource type="Script" path="res://actors/player_ship_physics.gd" id="1_tbtrg"]
+[ext_resource type="Texture2D" uid="uid://xi0iji67a6yi" path="res://sprites/ship.png" id="2_y0rbh"]
+[ext_resource type="Texture2D" uid="uid://ctue7vpai6mef" path="res://sprites/beam.png" id="3_j6tkj"]
+[ext_resource type="PackedScene" uid="uid://jla05bme4pcd" path="res://actors/mining_laser.tscn" id="4_ihiuh"]
+[ext_resource type="AudioStream" uid="uid://b7vp2qdh6lg5c" path="res://sounds/hit/hit_004.wav" id="5_0vpnd"]
+[ext_resource type="AudioStream" uid="uid://di2o4yki3aah3" path="res://sounds/hit/hit_002.wav" id="5_lqopy"]
+[ext_resource type="AudioStream" uid="uid://d4awq84pkvo62" path="res://sounds/hit/hit_003.wav" id="6_02jlv"]
+[ext_resource type="AudioStream" uid="uid://ccra872bkwduo" path="res://sounds/hit/menu_020.wav" id="8_njulb"]
+[ext_resource type="AudioStream" uid="uid://dejdfun2tfym0" path="res://sounds/hit/menu_021.wav" id="9_sy8mm"]
+[ext_resource type="AudioStream" uid="uid://d3evccgao730g" path="res://sounds/hit/menu_022.wav" id="10_sq5ig"]
+[ext_resource type="AudioStream" uid="uid://caqp3wmakha6m" path="res://sounds/hit/menu_024.wav" id="11_yv13s"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_166lj"]
+bounce = 1.0
+
+[sub_resource type="Gradient" id="Gradient_70wmb"]
+offsets = PackedFloat32Array(0, 0.784615, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xrrma"]
+gradient = SubResource("Gradient_70wmb")
+
+[sub_resource type="Curve" id="Curve_nr2ih"]
+max_value = 3.0
+_data = [Vector2(0, 0), 0.0, 9.70909, 0, 0, Vector2(1, 3), 3.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3sr5m"]
+curve = SubResource("Curve_nr2ih")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fgu8o"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_3sr5m")
+color_ramp = SubResource("GradientTexture1D_xrrma")
+
+[sub_resource type="Gradient" id="Gradient_v6lq4"]
+offsets = PackedFloat32Array(0, 0.187692, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dfkg0"]
+gradient = SubResource("Gradient_v6lq4")
+
+[sub_resource type="Curve" id="Curve_e842e"]
+max_value = 3.0
+_data = [Vector2(0, 3), 0.0, -3.0, 0, 1, Vector2(1, 0), -9.24675, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2vmei"]
+curve = SubResource("Curve_e842e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e3j58"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -200.0
+initial_velocity_max = -200.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_2vmei")
+color_ramp = SubResource("GradientTexture1D_dfkg0")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_slaro"]
+radius = 22.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x08qs"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8a6md"]
+radius = 50.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xnpm7"]
+streams_count = 3
+stream_0/stream = ExtResource("5_lqopy")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("6_02jlv")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_0vpnd")
+stream_2/weight = 1.0
+
+[sub_resource type="Gradient" id="Gradient_tf5y1"]
+offsets = PackedFloat32Array(0.723077, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_utl8p"]
+gradient = SubResource("Gradient_tf5y1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1oqox"]
+particle_flag_disable_z = true
+spread = 10.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color_ramp = SubResource("GradientTexture1D_utl8p")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_b3e17"]
+streams_count = 4
+stream_0/stream = ExtResource("8_njulb")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("9_sy8mm")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("10_sq5ig")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("11_yv13s")
+stream_3/weight = 1.0
+
+[node name="PlayerShip" type="RigidBody2D" groups=["player"]]
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_166lj")
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_tbtrg")
+max_health = 50.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(0, -17, 17, 11, 0, 17, -17, 11)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_y0rbh")
+
+[node name="DamageImmunityTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TractorBeamPush" type="GPUParticles2D" parent="."]
+position = Vector2(0, -18)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_fgu8o")
+texture = ExtResource("3_j6tkj")
+local_coords = true
+
+[node name="TractorBeamPull" type="GPUParticles2D" parent="."]
+position = Vector2(0, -200)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_e3j58")
+texture = ExtResource("3_j6tkj")
+local_coords = true
+
+[node name="TractorShapeCast" type="ShapeCast2D" parent="."]
+visible = false
+position = Vector2(0, -18.224)
+enabled = false
+shape = SubResource("CircleShape2D_slaro")
+target_position = Vector2(0, -160)
+collision_mask = 9
+
+[node name="ScanCollision" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScanCollision"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_x08qs")
+
+[node name="RadiationDistance" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RadiationDistance"]
+shape = SubResource("CircleShape2D_8a6md")
+
+[node name="MiningLaser" parent="." instance=ExtResource("4_ihiuh")]
+position = Vector2(0, -17.954)
+rotation = -1.5708
+damage = 5.0
+
+[node name="DamageAudio" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_xnpm7")
+volume_db = -10.0
+
+[node name="ThrustAudio" type="AudioStreamPlayer" parent="."]
+
+[node name="ThrusterVFX" type="GPUParticles2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.803922)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_1oqox")
+lifetime = 0.5
+
+[node name="Collection" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_b3e17")
+volume_db = -30.0
+
+[connection signal="area_entered" from="RadiationDistance" to="." method="_on_radiation_distance_area_entered"]
+[connection signal="area_exited" from="RadiationDistance" to="." method="_on_radiation_distance_area_exited"]
+[connection signal="body_entered" from="RadiationDistance" to="." method="_on_radiation_distance_body_entered"]
+[connection signal="body_exited" from="RadiationDistance" to="." method="_on_radiation_distance_body_exited"]

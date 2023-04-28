@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjdecpwwljjro"]
+
+[ext_resource type="Script" path="res://actors/railgun_round.gd" id="1_6dd42"]
+[ext_resource type="Texture2D" uid="uid://cwgc1tbhpvv7m" path="res://sprites/railgun.png" id="2_cmkxk"]
+[ext_resource type="AudioStream" uid="uid://d4c2km5hlp2cd" path="res://sounds/hit/EL-blow_01.wav" id="3_hqbfd"]
+[ext_resource type="AudioStream" uid="uid://b1n13536u31by" path="res://sounds/hit/EL-blow_02.wav" id="4_dfunn"]
+[ext_resource type="AudioStream" uid="uid://b7omvv6bkhopr" path="res://sounds/hit/EL-blow_03.wav" id="5_7x570"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yoge1"]
+radius = 8.13
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a4tbs"]
+emission_shape = 1
+emission_sphere_radius = 2.0
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+tangential_accel_min = 2.0
+tangential_accel_max = 2.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xxcl8"]
+streams_count = 3
+stream_0/stream = ExtResource("3_hqbfd")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_dfunn")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_7x570")
+stream_2/weight = 1.0
+
+[node name="RailgunRound" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 7
+script = ExtResource("1_6dd42")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yoge1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("2_cmkxk")
+
+[node name="Trail" type="GPUParticles2D" parent="."]
+position = Vector2(-7.744, 0)
+process_material = SubResource("ParticleProcessMaterial_a4tbs")
+trail_enabled = true
+trail_lifetime = 0.2
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_xxcl8")
+volume_db = -10.0
+autoplay = true
+max_distance = 10000.0
+attenuation = 0.297302
+
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

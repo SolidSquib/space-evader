@@ -1,0 +1,111 @@
+[gd_scene load_steps=15 format=3 uid="uid://jla05bme4pcd"]
+
+[ext_resource type="Script" path="res://actors/mining_laser.gd" id="1_gv5mw"]
+
+[sub_resource type="Curve" id="Curve_65la7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.772727, 0.990909), 0.0, 0.0, 0, 0, Vector2(1, 0.372727), -10.44, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_1jr5y"]
+offsets = PackedFloat32Array(0.64, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_e0lor"]
+gradient = SubResource("Gradient_1jr5y")
+
+[sub_resource type="Curve" id="Curve_splli"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.865169, 0.963636), 0.0, 0.0, 0, 0, Vector2(1, 0.118182), -2.99956, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_5kca0"]
+curve = SubResource("Curve_splli")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wp8q7"]
+particle_flag_disable_z = true
+spread = 90.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 75.0
+initial_velocity_max = 150.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_5kca0")
+color_ramp = SubResource("GradientTexture1D_e0lor")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s2vbn"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_5kca0")
+color_ramp = SubResource("GradientTexture1D_e0lor")
+
+[sub_resource type="Gradient" id="Gradient_vu3ws"]
+offsets = PackedFloat32Array(0.489231, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5xald"]
+gradient = SubResource("Gradient_vu3ws")
+
+[sub_resource type="Curve" id="Curve_cq1fe"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.23636, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0mdni"]
+curve = SubResource("Curve_cq1fe")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iqxp4"]
+emission_shape = 3
+emission_box_extents = Vector3(50, 1, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+tangential_accel_min = 100.0
+tangential_accel_max = 100.0
+scale_curve = SubResource("CurveTexture_0mdni")
+color_ramp = SubResource("GradientTexture1D_5xald")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wmwgu"]
+
+[node name="MiningLaser" type="RayCast2D"]
+target_position = Vector2(1000, 0)
+script = ExtResource("1_gv5mw")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 100, 0)
+width = 3.0
+width_curve = SubResource("Curve_65la7")
+
+[node name="CastingVFX" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_wp8q7")
+lifetime = 0.1
+
+[node name="CollisionVFX" type="GPUParticles2D" parent="."]
+position = Vector2(100, 0)
+rotation = 3.14159
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_s2vbn")
+lifetime = 0.1
+
+[node name="BeamVFX" type="GPUParticles2D" parent="."]
+position = Vector2(50, 0)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_iqxp4")
+lifetime = 0.3
+trail_lifetime = 0.5
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+visible = false
+shape = SubResource("RectangleShape2D_wmwgu")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
